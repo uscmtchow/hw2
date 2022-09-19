@@ -29,6 +29,7 @@ std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
     std::set<T> union;
     for (auto its1: s1) union.insert(its1);
     for (auto its2 : s2) union.insert(its2);
+    return union;
 }
 
 /***********************************************/
