@@ -20,21 +20,23 @@ std::set<std::string> parseStringToWords(string rawWords) {
     std::stringstream stream(rawWords);
 
     while (stream >> temp) {
-        if (temp.length() < 2) continue;
+        if (temp.length() <= 2) continue;
 
         int length = temp.length();
         int i = 0;
         while (temp != "") {
             if (ispunct(temp[i])) {
                 temp[i] = ' ';
-                words.insert(convToLower(temp.substr(0, i)));
+								if (temp.substr(0, i) > 2) words.insert(convToLower(temp.substr(0, i)));
                 temp = temp.substr(i);
                 i = 0;
                 length = temp.length();
             }
             if (i == length) {
-                words.insert(convToLower(temp));
-                temp = "";
+								if (temp > 2) {
+                	words.insert(convToLower(temp));
+                	temp = "";
+								}
             }
         }
     }
