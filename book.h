@@ -3,7 +3,7 @@
 
 #include "product.h"
 
-struct Book: class Product {
+struct Book: public Product {
 public:
     Book(std::string ISBN_, std::string author_);
     std::set<std::string> keywords() const

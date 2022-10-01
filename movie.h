@@ -2,7 +2,7 @@
 #define MOVIE_H
 
 
-struct Movie : class Product {
+struct Movie : public Product {
 public:
     Movie(std::string genre_, std::string rating_);
     std::set<std::string> keywords() const
