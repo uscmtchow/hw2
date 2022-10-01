@@ -10,6 +10,8 @@
 #include "product_parser.h"
 #include "util.h"
 
+#include "mydatastore.h"
+
 using namespace std;
 struct ProdNameSorter {
     bool operator()(Product* p1, Product* p2) {
@@ -29,7 +31,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -100,7 +102,39 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
-
+            else if (cmd == "ADD") {
+                std::string user;
+                unsigned int index;
+                ss >> username;
+                if (ss.fail()) std::cout << "Error - " << std::endl;
+                ss >> index;
+                if (ss.fail()) std::cout << "Error - " << std::endl;
+                if (!(ds.addToCart(convToLower((user), index)))) std::cout << "Error - " << std::endl;
+            }
+            else if (cmd == "VIEWCART") {
+                std::string user;
+                ss >> user;
+                if (ss.fail()) std::cout << "Error - " << std::endl;
+                if (!(ds.viewCart(convToLower(user)))) std::cout << "Error - " << std::endl;
+            }
+            else if (cmd == "BUYCART") {
+                std::string user;
+                ss >> user;
+                if (ss.fail()) std::cout << "Error - " << std::endl;
+                if (!(ds.buyCart(convToLower(user)))) std::cout << "Error - " << std::endl;
+            }
+            else if (cmd == "QUIT") {
+                std::string file;
+                ss >> file;
+                if (ss.fail()) std::cout << "Error - " << std::endl;
+                ofstream myFile;
+                myFile.open(file);
+                ds.dump(myFile);
+                myFile.close();
+            }
+            else {
+                std::cout << "Unknown Command - " << std::endl;
+            }
 
 
 
